@@ -27,6 +27,7 @@ if (!empty($_GET['display'])) {
 <html>
 	<head>
 		<title>Qobo Large Image Display</title>
+		<meta name="robots" content="noindex">
 		<style>
 			* { margin: 0px; padding: 0px; border: 0px; }
 			body { text-align: center; }

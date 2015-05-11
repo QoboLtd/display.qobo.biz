@@ -26,7 +26,7 @@ if (!empty($_GET['display'])) {
 <!doctype html5>
 <html>
 	<head>
-		<title>Qobo Long Image Display</title>
+		<title>Qobo Large Image Display</title>
 		<style>
 			* { margin: 0px; padding: 0px; border: 0px; }
 			body { text-align: center; }

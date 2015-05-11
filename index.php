@@ -5,7 +5,7 @@ require_once 'vendor/autoload.php';
 // Load .env variables
 try {
 	Dotenv::load(__DIR__);
-	Dotenv::required(['IMG_PREFIX_URL', 'IMG_PREFIX_PATH']);
+	Dotenv::required(['IMG_PREFIX_LOCAL', 'IMG_PREFIX_URL', 'IMG_PREFIX_PATH']);
 }
 catch (\Exception $e) {
 	echo "Failed to load environment configuration.";
@@ -14,10 +14,18 @@ catch (\Exception $e) {
 
 $img = '';
 if (!empty($_GET['display'])) {
-	$img = realpath(getenv('IMG_PREFIX_PATH') . $_GET['display']);
+	if (getenv('IMG_PREFIX_LOCAL')) {
+		$img = realpath(getenv('IMG_PREFIX_PATH') . $_GET['display']);
+		if ($img) {
+			// Remove full filesystem path
+			$img = str_replace(getcwd(), '', $img);
+		}
+	}
+	else {
+		$img = getenv('IMG_PREFIX_PATH') . $_GET['display'];
+	}
+
 	if ($img) {
-		// Remove full filesystem path
-		$img = str_replace(getcwd(), '', $img);
 		// Prefix URL
 		$img = getenv('IMG_PREFIX_URL') . $img;
 	}

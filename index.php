@@ -13,16 +13,19 @@ catch (\Exception $e) {
 }
 
 $img = '';
+$title = 'Qobo Large Image Display';
 if (!empty($_GET['display'])) {
 	if (getenv('IMG_PREFIX_LOCAL')) {
 		$img = realpath(getenv('IMG_PREFIX_PATH') . $_GET['display']);
 		if ($img) {
 			// Remove full filesystem path
 			$img = str_replace(getcwd(), '', $img);
+			$title = $img;
 		}
 	}
 	else {
 		$img = getenv('IMG_PREFIX_PATH') . $_GET['display'];
+		$title = $_GET['display'];
 	}
 
 	if ($img) {
@@ -34,7 +37,7 @@ if (!empty($_GET['display'])) {
 <!doctype html5>
 <html>
 	<head>
-		<title>Qobo Large Image Display</title>
+		<title><?php echo $title; ?></title>
 		<meta name="robots" content="noindex">
 		<style>
 			* { margin: 0px; padding: 0px; border: 0px; }
